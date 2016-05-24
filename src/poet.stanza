@@ -20,3 +20,32 @@ defn escape (src:String, char:Char) -> String :
 ; check if a string contains 
 public defn contains (src:String, find:String) :
     not (index-of-chars(src, find) is False)
+
+public defn read-and-delete (file:String) -> Array<String> :
+    val data = arr-split(slurp(file), "\n")
+    delete-file(file)
+    data
+
+public defn last-output () -> Int :
+    val file = to-string("/tmp/%_-exit-code.tmp" % [current-time-us()])
+    call-system(to-string("echo $? > %_" % [file]))
+    val exit-code = to-int(slurp(file))
+    delete-file(file)
+    exit-code    
+
+public defn link-test (file:String) :
+    call-system(to-string("test -L %_" % [file]))
+    output-to-bool(last-output())
+
+public defn dir-test (file:String) :
+    call-system(to-string("test -d %_" % [file])
+    output-to-bool(last-output())
+
+defn output-to-bool (n:Int) :
+    n == 0
+; curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://hostname/resource
+public defn curl-get (target: String, accept:String, type:String) -> Array<String> :
+    val file = to-string("/tmp/GET%_-%_.tmp" % [target, current-time-us()])
+    call-system(to-string("touch & curl -i -H \"Accept: %_\" -H \"Content-Type: %_\" -X GET %_" % [accept, type, target]))
+    read-and-delete(file)
+    
