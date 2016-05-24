@@ -1,0 +1,22 @@
+defpackage poet :
+    import core
+
+
+public defn arr-split (str:String, b:String) -> Array<String> :
+    to-array<String>(split(str, b))
+
+; a silly hacky way of reading input by a terminating char
+public defn read-line (term:Char) -> String :
+    var char = get-char(STANDARD-INPUT-STREAM) as Char
+    var buff = StringBuffer()
+    while char is Char and char != term :
+        add(buff, char as Char)
+        char = get-char(STANDARD-INPUT-STREAM)
+    escape(to-string(buff), term)
+
+defn escape (src:String, char:Char) -> String :
+    string-join(filter({_ != char}, to-array<Char>(src)), "")
+
+; check if a string contains 
+public defn contains (src:String, find:String) :
+    not (index-of-chars(src, find) is False)

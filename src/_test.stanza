@@ -1,0 +1,11 @@
+defpackage testing :
+    import core
+    import poet
+
+defn main () :
+    print("Testing read-line: ")
+    val line = read-line('\n')
+    println("Got, \"%_\" %@" % [line, to-array<Char>(line)])
+    println("\"%_\" contains \"%_\" == %_" % [line, line[0 to length(line) / 2], contains(line, line[0 to length(line) / 2])])
+
+main()
