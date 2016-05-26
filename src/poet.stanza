@@ -25,7 +25,7 @@ public defn read-and-delete (file:String) -> Array<String> :
     delete-file(file)
     data
 
-public defn last-output () -> Int :
+public defn last-output () -> Int|False :
     val file = to-string("/tmp/%_-exit-code.tmp" % [current-time-us()])
     call-system(to-string("echo $? > %_" % [file]))
     val exit-code = to-int(slurp(file))
@@ -37,10 +37,10 @@ public defn link-test (file:String) :
     output-to-bool(last-output())
 
 public defn dir-test (file:String) :
-    call-system(to-string("test -d %_" % [file])
+    call-system(to-string("test -d %_" % [file]))
     output-to-bool(last-output())
 
-defn output-to-bool (n:Int) :
+defn output-to-bool (n:Int|False) :
     n == 0
 
 ; curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://hostname/resource

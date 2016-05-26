@@ -8,4 +8,8 @@ defn main () :
     println("Got, \"%_\" %@" % [line, to-array<Char>(line)])
     println("\"%_\" contains \"%_\" == %_" % [line, line[0 to length(line) / 2], contains(line, line[0 to length(line) / 2])])
 
+    val should-exist = file-exists?("_test.stanza")
+    val should-not-exist = file-exists?("test.stanza")
+    println("Existing file exists? %_. Nonexistant file exists? %_." % [should-exist, should-not-exist])
+
 main()
