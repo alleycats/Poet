@@ -1,0 +1,19 @@
+defpackage poet-file :
+  import core
+
+extern file_exists: (ptr<byte>) -> int
+extern is_link:     (ptr<byte>) -> int
+
+public lostanza defn file-exists? (file: ref<String>) -> ref<True|False> :
+  val cstr : ptr<byte> = addr!(file.chars)
+  if (call-c file_exists(cstr) == 0) :
+    return true
+  else :
+    return false
+
+public lostanza defn is-link? (file: ref<String>) -> ref<True|False> :
+  val cstr : ptr<byte> = addr!(file.chars)
+  if (call-c is_link(cstr) == 0) :
+    return true
+  else :
+    return false

@@ -1,7 +1,6 @@
 defpackage poet :
     import core
 
-
 public defn arr-split (str:String, b:String) -> Array<String> :
     to-array<String>(split(str, b))
 
@@ -43,6 +42,7 @@ public defn dir-test (file:String) :
 
 defn output-to-bool (n:Int) :
     n == 0
+
 ; curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://hostname/resource
 public defn curl-get (target: String, accept:String, type:String) -> Array<String> :
     val file = to-string("/tmp/GET%_-%_.tmp" % [target, current-time-us()])
